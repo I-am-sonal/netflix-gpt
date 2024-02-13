@@ -1,0 +1,5 @@
+terminal:
+>> npx create-react-app netflix-gpt
+
+it will create netflix-gpt(folder) project with bundler and has inbuild packages in it
+it will have jest inbuild as a testing library.
