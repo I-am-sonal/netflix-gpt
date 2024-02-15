@@ -1,14 +1,19 @@
----------------------------------------------------------------
+pending tasks:
+firebase deployment URL is not working
+
+---
 
 13-02-2024
 
 Episode-14 | NetflixGPT - The Beginning
 
-Inside folder - command line 
->>npx create-react-app netflix-gpt
+Inside folder - command line
+
+> > npx create-react-app netflix-gpt
 
 terminal:
->> npx create-react-app netflix-gpt
+
+> > npx create-react-app netflix-gpt
 
 it will give a basic project structure
 it will create netflix-gpt(folder) project with bundler and has inbuild packages in it
@@ -16,14 +21,18 @@ it will have jest inbuild as a testing library.
 it has inbuild app.test.js file to test the project.
 
 to run the project:
->>npm run start // or npm start
----------------------------------------------------------------
+
+> > npm run start // or npm start
+
+---
+
 Hot Module Replacement (HMR) for a React App:
 
 What is react-refresh? react-refresh-webpack-plugin is a hot module replacement (HMR) plugin provided by React.
 A Webpack plugin to enable "Fast Refresh" (also previously known as Hot Reloading) for React components.
 
----------------------------------------------------------------
+---
+
 Git Initialization:
 
 git init
@@ -32,64 +41,284 @@ git commit -m "first commit"
 git branch -M main
 git remote add origin https://github.com/I-am-sonal/netflix-gpt.git
 git push -u origin main
----------------------------------------------------------------
->>Install Tailwind CSS with Create React App
 
->>Create your project:
-npx create-react-app my-project
-cd my-project
+---
 
->>Install Tailwind CSS:
-npm install -D tailwindcss
-npx tailwindcss init
+> > Install Tailwind CSS with Create React App
 
->>Configure your template paths
-Add the paths to all of your template files in your tailwind.config.js file.
+> > Create your project:
+> > npx create-react-app my-project
+> > cd my-project
 
-/** @type {import('tailwindcss').Config} */
+> > Install Tailwind CSS:
+> > npm install -D tailwindcss
+> > npx tailwindcss init
+
+> > Configure your template paths
+> > Add the paths to all of your template files in your tailwind.config.js file.
+
+/** @type {import('tailwindcss').Config} \*/
 module.exports = {
-  content: [
-    "./src/**/*.{js,jsx,ts,tsx}",
-  ],
-  theme: {
-    extend: {},
-  },
-  plugins: [],
+content: [
+"./src/**/\*.{js,jsx,ts,tsx}",
+],
+theme: {
+extend: {},
+},
+plugins: [],
 }
 
->>Add the Tailwind directives to your CSS
-Add the @tailwind directives for each of Tailwind’s layers to your ./src/index.css file.
+> > Add the Tailwind directives to your CSS
+> > Add the @tailwind directives for each of Tailwind’s layers to your ./src/index.css file.
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
->>Start your build process
-npm run start
+> > Start your build process
+> > npm run start
 
->>Start using Tailwind in your project
-App.js
-export default function App() {
-  return (
+> > Start using Tailwind in your project
+> > App.js
+> > export default function App() {
+> > return (
+
     <h1 className="text-3xl font-bold underline">
       Hello world!
     </h1>
-  )
+
+)
 }
----------------------------------------------------------------
+
+---
+
 functional component - short form - rafce
 
 Routing (page navigations):
 we need to use createBrowserRouter from react-router-dom
 
->>npm i -D react-router-dom
+> > npm i -D react-router-dom
 
 import { createBrowserRouter } from 'react-router-dom'
 
 =>To provide the routing
 
----------------------------------------------------------------
-Forms in React:
+//////////////////////////////////////////////////////////////////////////
 
-If you wants to build large scale forms: 
-Formik is open source form library for React and React Native. 
+> > Forms in React:
+
+If you wants to build large scale forms:
+Formik is open source form library for React and React Native.
+
+> > useRef
+> > useRef is a React Hook that lets you reference a value that’s not needed for rendering.
+
+> > How to test through Regex:
+
+Regex for email validation
+
+2 ways to get the entered data(values) from the form:
+
+1. using state variables
+2. reference using useRef (if we want what user have entered in the input box..
+   we need to use the reference of that input box. React gives useRef for it.)
+
+> > After submitted the form page is getting refreshed
+> > Because of how the web was designed. HTTP is stateless so any transfer of information between client and server requires a request from client to server.
+
+<form onSubmit={(e) => e.preventDefault()} >
+</form>
+
+useRef will return an object,
+if you want to check on the entered value use:
+console.log(email.current.value);
+console.log(password.current.value);
+//////////////////////////////////////////////////////////////////////////
+
+example:
+
+Login.js
+
+const Login = () => {
+
+const [errorMessage, setErrorMessage] = useState(null);
+
+const fullName = useRef(null);
+const email = useRef(null);
+const password = useRef(null);
+
+const handleButtonClick = () => {
+//validate the form data
+
+    const message = checkValidData(
+      fullName.current.value,
+      email.current.value,
+      password.current.value
+    );
+    console.log(fullName.current.value);
+    console.log(email.current.value);
+    console.log(password.current.value);
+    console.log(message);
+    setErrorMessage(message);
+
+};
+
+return (
+
+<div>
+<Header />
+<div className="form-inner justify-center flex">
+<form
+onSubmit={(e) => e.preventDefault()}
+className="my-14 flex flex-col max-w-[450px] min-h-48 bg-black bg-opacity-70 text-white p-20 w-full" >
+<h1 className="text-3xl font-bold mb-4">
+{isSignInForm ? "Sign In" : "Sign Up"}
+</h1>
+{!isSignInForm && (
+<div>
+<input
+                ref={fullName}
+                type="text"
+                className="w-full p-2 my-2 bg-gray-800 bg-transparent border border-white rounded-lg"
+                placeholder="Full Name"
+              />
+<input
+                type="text"
+                className="w-full p-2 my-2 bg-gray-800 bg-transparent border border-white rounded-lg"
+                placeholder="Mobile Number"
+              />
+</div>
+)}
+<input
+            ref={email}
+            type="text"
+            className="p-2 my-2 bg-gray-800 bg-transparent border border-white rounded-lg"
+            placeholder="Email Address"
+          />
+<input
+            ref={password}
+            type="password"
+            className="p-2 my-2 bg-gray-800 border border-white rounded-lg"
+            placeholder="Password"
+          />
+<p className="text-red-600 text-sm">{errorMessage}</p>
+<button
+            className="my-2 p-2 bg-red-700 rounded-lg"
+            onClick={handleButtonClick}
+          >
+{isSignInForm ? "Sign In" : "Sign Up"}
+</button>
+<p className="my-2 p-2" onClick={toggleSignInForm}>
+{isSignInForm
+? "New to Netflix? Sign up now."
+: "Already registered? Sign In now"}
+</p>
+</form>
+</div>
+<Footer />
+</div>
+);
+};
+
+//////////////////////////////////////////////////////////////////////////
+
+validate.js
+
+export const checkValidData = (fullName, email, password) => {
+const isFullNameValid = fullName !== "" || null;
+const isEmailValid =
+/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)\*$/.test(
+      email
+    );
+  const isPasswordValid =
+    /^([a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,})$/.test(password);
+
+if (!isFullNameValid) return "FullName is not valid";
+if (!isEmailValid) return "Email ID is not valid";
+if (!isPasswordValid) return "Email ID is not valid";
+
+return null;
+};
+//////////////////////////////////////////////////////////////////////////
+
+Backend: Firebase
+
+Firebase provides tools to grow your app and business, for startups & global enterprises. Get your app up and running quickly & securely with fully managed backend infrastructure.
+
+A lot of startups use Firebase as backend. it can authenticate, do user login
+click here with Google account
+validate email and password
+
+Firebase login: https://firebase.google.com/
+
+> > create a project
+
+Get started by adding Firebase to your app >> select web
+
+> > Add Firebase to your web app
+> > add NetflixGPT - we can deploy our app to firebase, it gives you server, hosting of app,
+> > so that we can give a live url to the project
+
+> > Add Firebase SDK
+
+> > npm install firebase
+
+it will give configuration to connect to our database
+
+> > Install Firebase CLI
+> > npm install -g firebase-tools
+
+> > Go to authentication
+> > Sign In method -> Sign-in providers -> email password
+
+(it will show error -> disable CORS extension)
+
+Authenticate and manage users from a variety of providers without server-side code
+
+> > firebase login
+
+(it it fails -> Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass)
+
+> > firebase init (it will create forebase config)
+
+Which Firebase features do you want to set up for this directory? Press Space to select features, then Enter to confirm your
+choices. (Press <space> to select, <a> to toggle all, <i> to invert selection, and <enter> to proceed)
+
+> ( ) Hosting: Configure files for Firebase Hosting and (optionally) set up GitHub Action deploys
+
+use existing project
+
+> netflixgpt-f1d20 (NetflixGPT)
+
+what do you want to use as your public directory?
+build
+(in parcel we used to have dist folder )
+
+Firebase initialization complete!
+
+it will create firebase.json and firebaserc files
+
+> > before deploying the project first build the project
+> > npm run build
+
+it will create build folder, using this folder we can deploy the project
+
+> > firebase deploy
+
+url: netflixgpt-f1d20.web.app
+
+url: netflixgpt-f1d20.firebaseapp.com
+
+Steps for deployment:
+1)install firebase CLI - npm install -g firebase-tools
+2)Firebase login - firebase login
+3)Initialize Firebase - 'firebase init' then select hosting
+4)Deploy command - firebase deploy
+
+//////////////////////////////////////////////////////////////////////////
+2 types of hosting:
+
+1. using "firebase deploy" command you can deploy the code whenever you wish to deploy the project
+2. using github hosting ..whenever you push the code, it will automatically deploy the code.
+
+//////////////////////////////////////////////////////////////////////////
