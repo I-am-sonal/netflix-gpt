@@ -1,0 +1,25 @@
+1. What's React all about?
+2. Explain the Virtual DOM in React.
+3. State vs. Props - what's the difference?
+4. Why should one go for React?
+5. Tell me some of React's limitations.
+6. How is JSX different from HTML in React?
+7. What's the deal with Strict Mode in React?
+8. Can React Hooks replace Redux?
+9. When would you use useEffect() in React?
+10. Break down the distinctions between useState() and useEffect().
+11. Tips for preventing unnecessary re-renders in React.
+12. How do you handle forms and validation in React?
+13. When and why go for lazy loading in a React app?
+14. What are the perks of error boundaries in React?
+15. What's the scoop on Server-Side Rendering (SSR) in React apps?
+16. Different ways to style React components.
+17. Real-world examples of using useEffect() in different scenarios.
+18. Differences between functional and class components.
+19. When to opt for useMemo() and useCallback()?
+20. Explain controlled and uncontrolled components.
+21. How do you dynamically re-render views on browser resize?
+22. Navigating asynchronous operations with async/await and promises.
+23. Crafting sibling component communication using React Router.
+24. Unpacking the Context API and its role in React.
+25. Beyond basics: exploring lesser-known React Hooks.

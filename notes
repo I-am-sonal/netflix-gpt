@@ -1,5 +1,95 @@
+---------------------------------------------------------------
+
+13-02-2024
+
+Episode-14 | NetflixGPT - The Beginning
+
+Inside folder - command line 
+>>npx create-react-app netflix-gpt
+
 terminal:
 >> npx create-react-app netflix-gpt
 
+it will give a basic project structure
 it will create netflix-gpt(folder) project with bundler and has inbuild packages in it
 it will have jest inbuild as a testing library.
+it has inbuild app.test.js file to test the project.
+
+to run the project:
+>>npm run start // or npm start
+---------------------------------------------------------------
+Hot Module Replacement (HMR) for a React App:
+
+What is react-refresh? react-refresh-webpack-plugin is a hot module replacement (HMR) plugin provided by React.
+A Webpack plugin to enable "Fast Refresh" (also previously known as Hot Reloading) for React components.
+
+---------------------------------------------------------------
+Git Initialization:
+
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/I-am-sonal/netflix-gpt.git
+git push -u origin main
+---------------------------------------------------------------
+>>Install Tailwind CSS with Create React App
+
+>>Create your project:
+npx create-react-app my-project
+cd my-project
+
+>>Install Tailwind CSS:
+npm install -D tailwindcss
+npx tailwindcss init
+
+>>Configure your template paths
+Add the paths to all of your template files in your tailwind.config.js file.
+
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  content: [
+    "./src/**/*.{js,jsx,ts,tsx}",
+  ],
+  theme: {
+    extend: {},
+  },
+  plugins: [],
+}
+
+>>Add the Tailwind directives to your CSS
+Add the @tailwind directives for each of Tailwind’s layers to your ./src/index.css file.
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+>>Start your build process
+npm run start
+
+>>Start using Tailwind in your project
+App.js
+export default function App() {
+  return (
+    <h1 className="text-3xl font-bold underline">
+      Hello world!
+    </h1>
+  )
+}
+---------------------------------------------------------------
+functional component - short form - rafce
+
+Routing (page navigations):
+we need to use createBrowserRouter from react-router-dom
+
+>>npm i -D react-router-dom
+
+import { createBrowserRouter } from 'react-router-dom'
+
+=>To provide the routing
+
+---------------------------------------------------------------
+Forms in React:
+
+If you wants to build large scale forms: 
+Formik is open source form library for React and React Native. 
