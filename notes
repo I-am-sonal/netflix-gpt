@@ -1,5 +1,7 @@
 pending tasks:
 firebase deployment URL is not working
+TMDB API link is not working
+loggedin Image is showing cropped
 
 ---
 
@@ -667,3 +669,15 @@ TMDB API
 its free,
 proper doc of latest movies
 it gives token , better authentication
+
+==========================================
+best place to keep the useEffect in the central place (header.js ) instead of body.js
+
+---
+
+Login functionality
+when user loggedin it will redirect to Browse page (try to go to login("/") page..it wont)
+when user is logged out it will redirected to login ("/") page (try to go to browse("/browse") page from URL..it wont)
+
+==========================================
+Unsubscribing onAuthStateChanged
