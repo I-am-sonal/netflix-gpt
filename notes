@@ -431,3 +431,239 @@ if (!isSignInForm) {
           setErrorMessage(errorCode + "-" + errorMessage);
         });
     }
+
+//////////////////////////////////////////////////////////////////////////
+
+Store User data into the Redux Store:
+(we would require user data anytime/anywhere in the app)
+
+> > Redux store Setup:
+> > -> npm i -D @reduxjs/toolkit
+> > -> npm i react-redux
+
+Steps:
+1)Create a store -> appStore.js
+2)create a user slice -> userSlice.js
+3)Add slice into the store
+4)provide the store into the app.js using <provider store="appStore">
+
+appStore.js
+
+import { configureStore } from "@reduxjs/toolkit";
+import userReducer from "./userSlice";
+
+const appStore = configureStore({
+reducer: {
+user: userReducer,
+},
+});
+
+export default appStore;
+
+---
+
+userSlice.js
+import { createSlice } from "@reduxjs/toolkit";
+
+const userSlice = createSlice({
+name: "user",
+initialState: null,
+reducers: {
+addUser: (state, action) => {
+return action.payload;
+},
+removeUser: (state, action) => {
+return null;
+},
+},
+});
+
+export const { addUser, removeUser } = userSlice.actions;
+
+export default userSlice.reducer;
+
+---
+
+App.js
+
+function App() {
+return (
+<Provider store={appStore}>
+
+<Body />
+</Provider>
+);
+}
+
+---
+
+> > as soon as user signin or signup we need to update the store with that slice
+> > To store the user data into the store we need to dispatch it
+> > we need to write dispatch for sign in and sign up also hence to avoid duplication,
+> > we will use utility given by firebase "onAuthStateChanged" API
+> > this will be called whenver user signin, signup, signout, or any authentication state changes happens
+> > its a kind of a event listener
+
+Firebase documentation: manager users
+Get the currently signed-in user
+
+write the code into the rootlevel js file (app.js or body.js)
+
+// we need to call this api (event listner only once) -> useEffect with empty parentheses. \***\*\*\*\*\***\*\***\*\*\*\*\***//always use hooks at the top of your component
+
+if user signin/signup -> we will navigate the user to the browse page using
+useNavigate hook
+import { createBrowserRouter, useNavigate } from "react-router-dom";
+
+Body.js
+import { createBrowserRouter, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { addUser, removeUser } from "../utils/userSlice";
+
+const Body = () => {
+const dispatch = useDispatch();
+const navigate = useNavigate();
+
+useEffect(() => {
+onAuthStateChanged(auth, (user) => {
+if (user) {
+// User is signed in, see docs for a list of available properties
+// https://firebase.google.com/docs/reference/js/auth.user
+const { uid, email, displayName } = user;
+dispatch(addUser({ uid: uid, email: email, displayName: displayName }));
+navigate("/browse");
+
+} else {
+// User is signed out
+dispatch(removeUser());
+navigate("/");
+
+}
+});
+}, []);
+}
+
+imp:\***\*\*\*\*\*\*\***
+navigate should be added inside RouterProvider
+RouterProvider is in the body.js , so we need to add it inside any child component of it.
+hence we will add it in the login.js file now
+
+Login.js (navigate hook)
+import { useNavigate } from "react-router-dom";
+
+const Login = () => {
+const navigate = useNavigate();
+
+if (!isSignInForm) {
+//Sign Up logic here
+
+      createUserWithEmailAndPassword(
+        auth,
+        email.current.value,
+        password.current.value
+      )
+        .then((userCredential) => {
+          // Signed up
+          const user = userCredential.user;
+          console.log(user);
+          navigate("/browse");
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          setErrorMessage(errorCode + "-" + errorMessage);
+        });
+    } else {
+      // Sign In logic here
+
+      signInWithEmailAndPassword(
+        auth,
+        email.current.value,
+        password.current.value
+      )
+        .then((userCredential) => {
+          // Signed in
+          const user = userCredential.user;
+          console.log(user);
+          navigate("/browse");
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          setErrorMessage(errorCode + "-" + errorMessage);
+        });
+    }
+
+}
+
+// it should successfully navigate to the Browse page
+
+///////////////////////////////////////////////////////////
+On browse page -> add signout button functionality using "signOut" Api
+
+https://firebase.google.com/docs -> Password Authentication
+
+Header.js
+
+import React from "react";
+import { USER_ICON_URL } from "../utils/constant";
+import { signOut } from "firebase/auth";
+import { auth } from "../utils/firebase";
+import { useNavigate } from "react-router-dom";
+
+const Header = () => {
+const navigate = useNavigate();
+
+const handleSignOut = () => {
+signOut(auth)
+.then(() => {
+// Sign-out successful.
+navigate("/");
+})
+.catch((error) => {
+// An error happened.
+navigate("/error");
+});
+};
+return (
+
+<div className="header-inner bg-gradient-to-b from-black px-8 py-2 flex justify-between align-middle">
+<div>
+<img
+          className="w-44"
+          src="https://cdn.cookielaw.org/logos/dd6b162f-1a32-456a-9cfe-897231c7763c/4345ea78-053c-46d2-b11e-09adaef973dc/Netflix_Logo_PMS.png"
+          alt="logo"
+        />
+</div>
+<div className="flex align-middle">
+<img className="h-10" src={USER_ICON_URL} alt="user-icon" />
+<button onClick={handleSignOut} className="text-white">
+(Sign Out)
+</button>
+</div>
+</div>
+);
+};
+
+export default Header;
+
+==========================================
+
+Update a user's profile using "updateProfile" api
+and
+After signup to get the user data (photourl) from the store :
+it will update the user icon
+
+Header.js
+import { useSelector } from "react-redux";
+
+const user = useSelector((store) => store.user);
+
+        <img className="h-10" src={user.photoURL} alt="user-icon" />
+
+==========================================
+
+TMDB API
+its free,
+proper doc of latest movies
+it gives token , better authentication
