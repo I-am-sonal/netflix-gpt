@@ -224,21 +224,24 @@ className="my-14 flex flex-col max-w-[450px] min-h-48 bg-black bg-opacity-70 tex
 
 validate.js
 
-export const checkValidData = (fullName, email, password) => {
-const isFullNameValid = fullName !== "" || null;
-const isEmailValid =
-/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)\*$/.test(
-      email
-    );
-  const isPasswordValid =
-    /^([a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,})$/.test(password);
+export const checkValidData = (email, password) => {
+//const isFullNameValid = fullName !== "" || null;
+const isEmailValid = /^([a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})$/.test(
+email
+);
+const isPasswordValid =
+/((?=._\d)(?=._[a-z])(?=._[A-Z])(?=._[\W]).{6,20})/.test(password);
 
-if (!isFullNameValid) return "FullName is not valid";
-if (!isEmailValid) return "Email ID is not valid";
-if (!isPasswordValid) return "Email ID is not valid";
+if (!isEmailValid) {
+return "Email ID is not valid";
+}
+if (!isPasswordValid) {
+return "Password is not valid";
+}
 
-return null;
+return null; // null means email password is valid
 };
+
 //////////////////////////////////////////////////////////////////////////
 
 Backend: Firebase
@@ -305,6 +308,9 @@ it will create build folder, using this folder we can deploy the project
 
 > > firebase deploy
 
+left navigation - build - hosting:
+check https://console.firebase.google.com/project/netflixgpt-f1d20/hosting/sites/netflixgpt-f1d20/domains
+or
 url: netflixgpt-f1d20.web.app
 
 url: netflixgpt-f1d20.firebaseapp.com
@@ -315,6 +321,33 @@ Steps for deployment:
 3)Initialize Firebase - 'firebase init' then select hosting
 4)Deploy command - firebase deploy
 
+if it fails try:
+firebase init hosting
+(and again do all the commands)
+
+:))
+
+Domains:
+netflixgpt-f1d20.web.app
+netflixgpt-f1d20.firebaseapp.com
+
+///////
+firebase.json
+
+{
+"database": {
+"rules": "database.rules.json"
+},
+"hosting": {
+"public": "build",
+"ignore": [
+"firebase.json",
+"**/.*",
+"**/node_modules/**"
+]
+}
+}
+
 //////////////////////////////////////////////////////////////////////////
 2 types of hosting:
 
@@ -322,3 +355,79 @@ Steps for deployment:
 2. using github hosting ..whenever you push the code, it will automatically deploy the code.
 
 //////////////////////////////////////////////////////////////////////////
+Create SignUp user Account in firebase
+
+go to firebase documentation > search authentication > web
+Password-Based Accounts
+Create a password-based account
+API:
+Create a new account by passing the new user's email address and password to createUserWithEmailAndPassword:
+
+tab > Web modular API
+
+to use the API
+const auth = getAuth();
+
+in all the components again and again, we can call it in the common place
+add it inside
+firebase.js
+import { getAuth } from "firebase/auth";
+
+at the end add and export it:
+export const auth = getAuth();
+
+> > import it in login.js
+
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { Auth } from "firebase/auth";
+//////////////////////////////////////////////////////////////////////////
+
+> > Create a password-based account
+> > Create a new account by passing the new user's email address and password to createUserWithEmailAndPassword:
+
+import {
+createUserWithEmailAndPassword,
+signInWithEmailAndPassword,
+} from "firebase/auth";
+import { auth } from "../utils/firebase";
+
+Login.js
+(check the else part:)
+
+if (!isSignInForm) {
+//Sign Up logic here
+
+      createUserWithEmailAndPassword(
+        auth,
+        email.current.value,
+        password.current.value
+      )
+        .then((userCredential) => {
+          // Signed up
+          const user = userCredential.user;
+          console.log(user);
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          setErrorMessage(errorCode + "-" + errorMessage);
+        });
+    } else {
+      // Sign In logic here
+
+      signInWithEmailAndPassword(
+        auth,
+        email.current.value,
+        password.current.value
+      )
+        .then((userCredential) => {
+          // Signed in
+          const user = userCredential.user;
+          console.log(user);
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          setErrorMessage(errorCode + "-" + errorMessage);
+        });
+    }

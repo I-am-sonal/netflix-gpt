@@ -6,18 +6,22 @@
 - Routing of App
 - Login Form
 - useRef Hook
+- Firebase setup
+- Deploying our app to production
+- Create SignUp user Account in firebase
 
 # Features
+
 - Login/ Sign Up
-    - Sign In/ Sign Up Form
-    - Redirect to Browse Page
+  - Sign In/ Sign Up Form
+  - Redirect to Browse Page
 - Browse (After Authentication)
-    - Header
-    - Main Movie
-        - Trailer in background
-        - Title and Description
-        - Movie Suggestions
-            - MovieLists * N
-- NetFlixGPT
-    - Search Bar
+  - Header
+  - Main Movie
+    - Trailer in background
+    - Title and Description
     - Movie Suggestions
+      - MovieLists \* N
+- NetFlixGPT
+  - Search Bar
+  - Movie Suggestions

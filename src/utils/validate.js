@@ -1,15 +1,17 @@
-export const checkValidData = (fullName, email, password) => {
-  const isFullNameValid = fullName !== "" || null;
-  const isEmailValid =
-    /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(
-      email
-    );
+export const checkValidData = (email, password) => {
+  //const isFullNameValid = fullName !== "" || null;
+  const isEmailValid = /^([a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})$/.test(
+    email
+  );
   const isPasswordValid =
-    /^([a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,})$/.test(password);
+    /((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W]).{6,20})/.test(password);
 
-  if (!isFullNameValid) return "FullName is not valid";
-  if (!isEmailValid) return "Email ID is not valid";
-  if (!isPasswordValid) return "Email ID is not valid";
+  if (!isEmailValid) {
+    return "Email ID is not valid";
+  }
+  if (!isPasswordValid) {
+    return "Password is not valid";
+  }
 
-  return null;
+  return null; // null means email password is valid
 };
