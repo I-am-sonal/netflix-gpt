@@ -681,3 +681,20 @@ when user is logged out it will redirected to login ("/") page (try to go to bro
 
 ==========================================
 Unsubscribing onAuthStateChanged
+
+whenever my component unmounts, unsubscribe the user:
+Header.js
+useEffect(() => {
+const unsubscribe = onAuthStateChanged(auth, (user) => {
+}
+}
+});
+// unsubscribe when component unmounts
+
+return () => unsubscribe();
+}, []);
+
+==========================================
+Adding constants file to the project
+
+URLs , all hardcoded strings, values all inside "utils/constants.js"

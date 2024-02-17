@@ -16,6 +16,8 @@
 - Fetch movies from TMDB
 - Bugfix: Sign up user displayName and profile picture update
 - Bugfix: If the user is not loggedin Redirect/ browse to Login page and vice-versa
+- Unsubscribe to the onAuonAuthStateChanged callback
+- Add hardcoded values to the constants file
 
 # Features
 
