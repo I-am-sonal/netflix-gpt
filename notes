@@ -697,4 +697,89 @@ return () => unsubscribe();
 ==========================================
 Adding constants file to the project
 
-URLs , all hardcoded strings, values all inside "utils/constants.js"
+# URLs , all hardcoded strings, values all inside "utils/constants.js"
+
+In react Everything happens twice because of the <React.StrictMode>
+index.js
+React does it to check if any inconsistencies between the calls (it will show twice
+only on local (development mode), when you push the build on the production, it will happen only once)
+
+root.render(
+<React.StrictMode>
+<App />
+</React.StrictMode>
+);
+
+==========================================
+Adding movie data to the store (moviesSlice)
+
+we will create utils/moviesSlice.js and put all movie data inside it
+
+to check the setup is correct:
+Redux devtools extension:
+it will show "nowPlayingMovies" as null (means our slice is created perfectly fine :)
+
+Browse.js
+import { useDispatch } from "react-redux";
+import { addNowPlayingMovies } from "../utils/moviesSlice";
+
+const Browse = () => {
+const dispatch = useDispatch();
+const getNowPlayingMovies = async () => {
+const data = await fetch("https://dummyapi.online/api/movies");
+const json = await data.json();
+console.log(json);
+
+    //dispatch an action
+    dispatch(addNowPlayingMovies(json));
+
+};
+
+====================================================================================
+20-02-2024
+Episode-15 | NetflixGPT - Building the Core
+
+creating custom hooks:
+From Browse page the code ( // Fetch NowPlayingMovies data from API and update the store
+) is added in new hooks file named hooks/useNowPlayingMovies.js
+
+====================================================================================
+MainContainer.js page:
+
+Early return example:
+
+const movies = useSelector((store) => store.movies?.nowPlayingMovies);
+// console.log(Movies);
+if (movies === null) return; or if (!movies) return;//Early return example
+const mainMovie = movies[0];
+console.log(mainMovie);
+====================================================================================
+custom reusable hook to display popular movies:
+
+reference taken from hook file: "useNowPlayingMovies.js"
+
+copy file and rename it to :
+
+> > > "usePopularMovies.js"
+
+1. change function name
+2. API url: "https://www.omdbapi.com/?s=popular&apikey=263d22d8"
+3. dispatch action name: dispatch(addPopularMovies(json));
+4. const getNowPlayingMovies = async () => { function name to getPopularMovies
+
+> > > > moviesSlice.js
+
+1. add new reducer
+   addPopularMovies: (state, action) => {
+   state.popularMovies = action.payload;
+   },
+
+2. export action
+   export const { addNowPlayingMovies, addPopularMovies } = moviesSlice.actions;
+
+> > > > > Browse.js
+
+1. call the hook function
+   const Browse = () => {
+   useNowPlayingMovies();
+   usePopularMovies();

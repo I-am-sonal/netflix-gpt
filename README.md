@@ -18,6 +18,22 @@
 - Bugfix: If the user is not loggedin Redirect/ browse to Login page and vice-versa
 - Unsubscribe to the onAuonAuthStateChanged callback
 - Add hardcoded values to the constants file
+- Register TMDB API and create an app and get an access token
+- Get data from TMDB now playing movies list API (currently using dummy movie api from URL: "https://dummyapi.online/api/movies" )
+- Custom hook for now Playing movies
+- Create movieSlice
+- Update store with movies data
+- Planning for main Container and Secondary Container
+- Fetch data for trailer video/image
+- Update Store with Trailer video/image data
+- Embedded Youtube video and make it autoplay and mute
+- Tailwind classes to make the Main container looke awesome
+- Build Secondary component
+- Build movie list
+- Build movie card
+- Find out TMDB/OMDB image CDN URL
+- Made the Browser page amazing with Tailwind Css
+- usePupularMovies Custom hook
 
 # Features
 
