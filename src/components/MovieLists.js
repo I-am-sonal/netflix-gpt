@@ -3,9 +3,9 @@ import MovieCard from "./MovieCard";
 
 const MovieLists = ({ title, movies }) => {
   if (!movies) return;
-  console.log(movies);
+  //console.log(movies);
   const poster = movies.Search[0].Poster;
-  console.log(poster);
+  //console.log(poster);
 
   return (
     <div className="movie-category">

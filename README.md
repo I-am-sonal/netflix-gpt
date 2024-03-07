@@ -34,6 +34,9 @@
 - Find out TMDB/OMDB image CDN URL
 - Made the Browser page amazing with Tailwind Css
 - usePupularMovies Custom hook
+- GPT Search Page
+- GPT Search Bar
+- Multi-language Feature in our App
 
 # Features
 

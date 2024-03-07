@@ -10,7 +10,7 @@ import {
 import { auth } from "../utils/firebase";
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
-import { USER_AVATAR } from "../utils/constants";
+import { BG_URL, USER_AVATAR } from "../utils/constants";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -26,9 +26,9 @@ const Login = () => {
     //validate the form data
 
     const message = checkValidData(email.current.value, password.current.value);
-    console.log(email.current.value);
-    console.log(password.current.value);
-    console.log(message);
+    //console.log(email.current.value);
+    //console.log(password.current.value);
+    //console.log(message);
 
     setErrorMessage(message);
     if (message) return; // if we have any error message then stop here
@@ -68,7 +68,7 @@ const Login = () => {
               // An error occurred
               setErrorMessage(error.message);
             });
-          console.log(user);
+          //console.log(user);
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -102,7 +102,7 @@ const Login = () => {
     <div
       className="body-inner relative bg-cover bg-no-repeat background"
       style={{
-        backgroundImage: `url("https://assets.nflxext.com/ffe/siteui/vlv3/5e16108c-fd30-46de-9bb8-0b4e1bbbc509/29d8d7d7-83cc-4b5f-aa9b-6fd4f68bfaa6/IN-en-20240205-popsignuptwoweeks-perspective_alpha_website_small.jpg")`,
+        backgroundImage: `url(${BG_URL})`,
       }}
     >
       <Header />

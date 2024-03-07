@@ -783,3 +783,10 @@ copy file and rename it to :
    const Browse = () => {
    useNowPlayingMovies();
    usePopularMovies();
+   ====================================================================================
+   02-03-2024
+   Episode-16 | NetflixGPT - Wrapping Up
+
+Introduction to GPT
+
+Building GPT Search Page

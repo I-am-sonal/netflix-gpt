@@ -9,7 +9,7 @@ const SecondaryContainer = () => {
   // lists of movie categories
 
   return (
-    <div className="w-[100%] p-4">
+    <div className="w-[100%] p-4 bg-black">
       <MovieLists movies={movies?.nowPlayingMovies} title={"Now Playing"} />
       <MovieLists movies={movies?.horrorMovies} title={"Horror Movies"} />
       <MovieLists movies={movies?.popularMovies} title={"Popular Movies"} />

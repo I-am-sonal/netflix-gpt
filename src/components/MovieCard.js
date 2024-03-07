@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 const MovieCard = ({ poster, movies }) => {
   //const movies = useSelector((store) => store.movies);
   const moviePoster = movies?.Search;
-  console.log(moviePoster);
+  //console.log(moviePoster);
 
   return (
     <div className="movie-card-inner flex">

@@ -5,12 +5,16 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addUser, removeUser } from "../utils/userSlice";
 import { LOGO } from "../utils/constants";
+import { toggleGptSearchView } from "../utils/gptSlice";
+import { SUPPORTED_LANGUAGES } from "../utils/constants";
+import { changeLanguage } from "../utils/configSlice";
 
 const Header = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const user = useSelector((store) => store.user);
+  const showGptSearch = useSelector((store) => store.gpt.showGptSearch);
 
   const handleSignOut = () => {
     signOut(auth)
@@ -49,14 +53,37 @@ const Header = () => {
     return () => unsubscribe();
   }, []);
 
+  const handleGptSearchClick = () => {
+    dispatch(toggleGptSearchView());
+  };
+
+  const handleLanguageChange = (e) => {
+    dispatch(changeLanguage(e.target.value));
+  };
+
   return (
-    <div className="header-inner bg-gradient-to-b from-black px-8 py-2 flex justify-between align-middle">
+    <div className="header-inner px-8 py-2 flex justify-between align-middle">
       <div>
         <img className="w-44" src={LOGO} alt="logo" />
       </div>
       {/* it will show user icon and signout option when we have user(user is loggedin */}
       {user && (
-        <div className="flex align-middle">
+        <div className="flex align-middle items-center">
+          {showGptSearch && (
+            <select onChange={handleLanguageChange}>
+              {SUPPORTED_LANGUAGES.map((lang) => (
+                <option key={lang.identifier} value={lang.identifier}>
+                  {lang.name}
+                </option>
+              ))}
+            </select>
+          )}
+          <button
+            className="rounded text-white bg-black py-2 px-2 mx-2"
+            onClick={handleGptSearchClick}
+          >
+            {showGptSearch ? "HomePage" : "GPT Search"}
+          </button>
           <img className="h-10" src={user.photoURL} alt="user-icon" />
           <button onClick={handleSignOut} className="text-white">
             (Sign Out)

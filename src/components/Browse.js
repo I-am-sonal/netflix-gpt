@@ -7,8 +7,13 @@ import usePopularMovies from "../hooks/usePopularMovies";
 import useActionMovies from "../hooks/useActionMovies";
 import useFictionMovies from "../hooks/useFictionMovies";
 import useHorrorMovies from "../hooks/useHorrorMovies";
+import GptSearch from "./GptSearch";
+import { useSelector } from "react-redux";
+import { BG_URL } from "../utils/constants";
 
 const Browse = () => {
+  const showGptSearch = useSelector((store) => store.gpt.showGptSearch);
+
   useNowPlayingMovies();
   usePopularMovies();
   useActionMovies();
@@ -16,18 +21,20 @@ const Browse = () => {
   useFictionMovies();
 
   return (
-    <div>
+    <div
+      style={{
+        backgroundImage: `url(${BG_URL})`,
+      }}
+    >
       <Header />
-      <MainContainer />
-      <SecondaryContainer />
-      {/*
-        Main Container
-          - Video background
-          - VideoTitle
-        Secondary Container
-        - MovieList * n
-        - cards * n 
-      */}
+      {showGptSearch ? (
+        <GptSearch />
+      ) : (
+        <>
+          <MainContainer />
+          <SecondaryContainer />
+        </>
+      )}
     </div>
   );
 };

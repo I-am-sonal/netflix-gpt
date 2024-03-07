@@ -10,7 +10,7 @@ const useActionMovies = () => {
       "https://www.omdbapi.com/?s=action&apikey=263d22d8"
     );
     const json = await data.json();
-    console.log(json.Search);
+    //console.log(json.Search);
 
     //dispatch an action
     dispatch(addActionMovies(json));

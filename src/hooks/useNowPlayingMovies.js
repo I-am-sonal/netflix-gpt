@@ -8,7 +8,7 @@ const useNowPlayingMovies = () => {
   const getNowPlayingMovies = async () => {
     const data = await fetch("https://www.omdbapi.com/?s=now&apikey=263d22d8");
     const json = await data.json();
-    console.log(json.Search);
+    //console.log(json.Search);
 
     //dispatch an action
     dispatch(addNowPlayingMovies(json));
