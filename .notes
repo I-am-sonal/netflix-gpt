@@ -850,4 +850,19 @@ useEffect(() => {
 if (!nowPlayingMovies) getNowPlayingMovies();
 }, []);
 
-> > write it for all the hooks and it will saves a lot of API calls.
+> > # write it for all the hooks and it will saves a lot of API calls.
+
+====================================================================================
+
+> > open AI Usage Bill and Suggestions
+
+# you can ask the user to enter their API keys while GPT search and play with the websites.
+
+====================================================================================
+
+Making our App mobile responsive
+
+css:
+bg-black => by default its for mobile
+sm:bg-blue => its for greater than small devices
+md:bg-green => its for greater than ipad devices

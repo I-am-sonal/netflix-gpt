@@ -6,7 +6,7 @@ const GptMovieSuggestions = () => {
   const movies = useSelector((store) => store.movies);
 
   return (
-    <div className="bg-black bg-opacity-70">
+    <div className="bg-black">
       <h1>Showing result for: </h1>
       <MovieLists movies={movies?.nowPlayingMovies} title={"Now Playing"} />
     </div>

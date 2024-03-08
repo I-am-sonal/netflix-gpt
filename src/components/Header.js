@@ -62,9 +62,9 @@ const Header = () => {
   };
 
   return (
-    <div className="header-inner px-8 py-2 flex justify-between align-middle">
+    <div className="header-inner px-4 py-2 flex justify-center sm:justify-between align-center flex-col sm:flex-row">
       <div>
-        <img className="w-44" src={LOGO} alt="logo" />
+        <img className="w-44 justify-center" src={LOGO} alt="logo" />
       </div>
       {/* it will show user icon and signout option when we have user(user is loggedin */}
       {user && (
