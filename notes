@@ -783,10 +783,53 @@ copy file and rename it to :
    const Browse = () => {
    useNowPlayingMovies();
    usePopularMovies();
-   ====================================================================================
-   02-03-2024
-   Episode-16 | NetflixGPT - Wrapping Up
+
+====================================================================================
+02-03-2024
+Episode-16 | NetflixGPT - Wrapping Up
 
 Introduction to GPT
 
-Building GPT Search Page
+# Building GPT Search Page
+
+====================================================================================
+07-03-2024
+Episode-16 | NetflixGPT - Wrapping Up
+
+Adding GPT Feature to our App
+
+GPT open API
+https://platform.openai.com/
+
+create and use API key from it
+
+npm openai package :install it will help you call and function openai calls directly.
+
+on client side when using open api, our secret api can be leaked, hence use:
+
+openai.js
+
+const openai = new OpenAI({
+apiKey: OPENAI_KEY, // This is the default and can be omitted
+dangerouslyAllowBrowser: true, // use this to awaid leakage of data
+});
+====================================================================================
+08-03-2024
+Episode-16 | NetflixGPT - Wrapping Up
+
+Securing our API keys
+
+.env file:
+its used for securing the sesitive variables that we should not push to the git and hence
+will add it inside gitignore
+
+create .env file in the root folder for whatewher sensitive information you have in your app.
+its mandatory to add "REACT_APP" in front of your key to work with React.
+
+.env file:
+REACT_APP_OPENAI_KEY=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
+
+constants.js
+export const OPENAI_KEY = process.env.REACT_APP_OPENAI_KEY;
+
+once you make the changes in env file, you need to restart your server.

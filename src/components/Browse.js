@@ -22,6 +22,7 @@ const Browse = () => {
 
   return (
     <div
+      className="bg-fixed h-screen"
       style={{
         backgroundImage: `url(${BG_URL})`,
       }}
