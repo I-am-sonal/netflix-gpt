@@ -1,8 +1,10 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addHorrorMovies } from "../utils/moviesSlice";
 import { useEffect } from "react";
 
 const useHorrorMovies = () => {
+  const horrorMovies = useSelector((store) => store.movies.horrorMovies);
+
   // Fetch NowPlayingMovies data from API and update the store
   const dispatch = useDispatch();
   const getHorrorMovies = async () => {
@@ -17,7 +19,7 @@ const useHorrorMovies = () => {
   };
 
   useEffect(() => {
-    getHorrorMovies();
+    !horrorMovies && getHorrorMovies();
   }, []);
 };
 

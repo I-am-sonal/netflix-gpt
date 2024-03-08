@@ -1,8 +1,10 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addActionMovies } from "../utils/moviesSlice";
 import { useEffect } from "react";
 
 const useActionMovies = () => {
+  const actionMovies = useSelector((store) => store.movies.actionMovies);
+
   // Fetch NowPlayingMovies data from API and update the store
   const dispatch = useDispatch();
   const getActionMovies = async () => {
@@ -17,7 +19,7 @@ const useActionMovies = () => {
   };
 
   useEffect(() => {
-    getActionMovies();
+    !actionMovies && getActionMovies();
   }, []);
 };
 

@@ -832,4 +832,22 @@ REACT_APP_OPENAI_KEY=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
 constants.js
 export const OPENAI_KEY = process.env.REACT_APP_OPENAI_KEY;
 
-once you make the changes in env file, you need to restart your server.
+# once you make the changes in env file, you need to restart your server.
+
+====================================================================================
+Understanding memoization of data in our Apps
+
+To save the uneccessary API calls
+
+useNowPlayingMovies.js
+
+const useNowPlayingMovies = () => {
+const nowPlayingMovies = useSelector(
+(store) => store.movies.nowPlayingMovies
+);
+
+useEffect(() => {
+if (!nowPlayingMovies) getNowPlayingMovies();
+}, []);
+
+> > write it for all the hooks and it will saves a lot of API calls.
